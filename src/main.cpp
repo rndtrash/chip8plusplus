@@ -3,13 +3,21 @@
 #include <iostream>
 #include <ios>
 #include <array>
+#include <stdexcept>
 
 #include "chip8.hpp"
 
 std::vector<uint8_t> readFile(const std::string filename, std::ios_base::openmode flags)
 {
 	std::ifstream stream(filename, std::ios::in | std::ios::binary);
-	std::vector<uint8_t> contents((std::istreambuf_iterator<char>(stream)), std::istreambuf_iterator<char>());
+	if (!stream.good())
+	{
+		throw std::runtime_error(fmt::format("ERROR: file \"{}\" does not exist",
+			filename));
+	}
+
+	std::vector<uint8_t> contents((std::istreambuf_iterator<char>(stream)),
+		std::istreambuf_iterator<char>());
 
 	return contents;
 }
