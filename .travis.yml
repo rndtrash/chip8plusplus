@@ -1,0 +1,17 @@
+matrix:
+  include:
+    - os: linux
+      dist: xenial
+      language: cpp
+      compiler:
+        - clang
+      addons:
+        apt:
+          packages:
+            - libfmt-dev
+            - libgl1-mesa-dev
+            - libsdl2-dev
+      env:
+        - CXX=clang++
+      script:
+        - make
